@@ -18,3 +18,6 @@ let dice = Math.floor(Math.random() * 6) + 1; // generate number from 1 to 6
 
 // selects the current score field based on the current player
 document.querySelector(`#current-${currentPlayer}`).textContent = dice;
+
+// hide dice in beginning
+document.querySelector('.dice').style.display = 'none';
