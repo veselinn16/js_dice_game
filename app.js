@@ -14,10 +14,19 @@ let roundScore = 0;
 
 let currentPlayer = 0; // 0 -first player 1-second player
 
-let dice = Math.floor(Math.random() * 6) + 1; // generate number from 1 to 6
-
-// selects the current score field based on the current player
-document.querySelector(`#current-${currentPlayer}`).textContent = dice;
-
 // hide dice in beginning
-document.querySelector('.dice').style.display = 'none';
+document.querySelector('.dice').style.visibility = 'hidden';
+
+const button = () => {
+    let dice = Math.floor(Math.random() * 6) + 1; // generate number from 1 to 6
+    scores[currentPlayer]+= dice;
+    // selects the current score field based on the current player
+    document.querySelector(`#current-${currentPlayer}`).textContent = scores[currentPlayer];
+    
+    let diceDOM = document.querySelector('.dice');
+    // make dice visible and set the appropriate image
+    diceDOM.style.visibility = 'visible';
+    diceDOM.src = `dice-${dice}.png`;
+}
+
+document.querySelector('.btn-roll').addEventListener('click', button)
