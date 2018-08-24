@@ -33,6 +33,11 @@ body {
     color: var(--color-text);
 }
 
+::selection {
+    color: #fff;
+    background-color: var(--color-secondary);
+}
+
 .wrapper {
     width: 1000px;
     position: absolute;
