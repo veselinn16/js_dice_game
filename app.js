@@ -8,16 +8,11 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 
 */
-
-let scores = [0, 0];
-let roundScore = 0;
-
-let currentPlayer = 0; // 0 -first player 1-second player
+let scores, roundScore, currentPlayer;
 
 const diceDOM = document.querySelector('.dice');
 
-// hide dice in beginning
-diceDOM.style.visibility = 'hidden';
+start();
 
 const button = () => {
     let dice = Math.floor(Math.random() * 6) + 1; // generate number from 1 to 6    
@@ -25,7 +20,8 @@ const button = () => {
     // make dice visible and set the appropriate image
     diceDOM.style.visibility = 'visible';
     diceDOM.src = `dice-${dice}.png`;
-    currentPlayerDOM = document.querySelector(`#current-${currentPlayer}`);
+    currentPlayerDOM = document.getElementById(`current-${currentPlayer}`);
+    console.log(currentPlayerDOM);
 
     if(dice > 1) {
         roundScore += dice;
@@ -57,7 +53,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     document.getElementById(`score-${currentPlayer}`).textContent = scores[currentPlayer];
    
     // check if player wins
-    if(scores[currentPlayer] >= 1)  {
+    if(scores[currentPlayer] >= 10)  {
         document.getElementById(`name-${currentPlayer}`).textContent = 'Winner!';
         diceDOM.style.visibility = 'hidden';
         document.querySelector(`.player-${currentPlayer}-panel`).classList.add('winner');
@@ -66,3 +62,34 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         switchPlayer();
     }    
 });
+
+document.querySelector('.btn-new').addEventListener('click', start);
+
+function start() {
+    // 0 -first player 1-second player
+    scores = [0, 0];
+    currentPlayer = 0;
+    roundScore = 0;
+
+    // hide dice in beginning
+    diceDOM.style.visibility = 'hidden';
+
+    // reset scores
+    document.getElementById('score-0').textContent = 0;
+    document.getElementById('score-1').textContent = 0;
+    document.getElementById('current-0').textContent = 0;
+    document.getElementById('current-1').textContent = 0;
+
+    // reset names
+    document.getElementById('name-0').textContent = 'Player 1';
+    document.getElementById('name-1').textContent = 'Player 2';
+
+    // remove active and winner classes
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
+    document.querySelector('.player-0-panel').classList.remove('active');
+    document.querySelector('.player-0-panel').classList.remove('active');
+
+    // add the active class to the first player
+    document.querySelector('.player-0-panel').classList.add('active');
+}
