@@ -33,6 +33,10 @@ const button = () => {
         document.querySelector(`#current-${currentPlayer}`).textContent = 0;
         currentPlayer === 0 ? currentPlayer = 1 : currentPlayer = 0;
         roundScore = 0;
+
+        // indicate visibly that whose turn it is to roll the dice
+        document.querySelector('.player-0-panel').classList.toggle('active');
+        document.querySelector('.player-1-panel').classList.toggle('active');
     }
 }
 
