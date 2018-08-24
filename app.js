@@ -1,4 +1,6 @@
-let scores, roundScore, currentPlayer, gamePlaying, prevDice;
+let scores, roundScore, currentPlayer, gamePlaying, prevDice, winScore;
+// asks user when the game should end
+winScore = prompt('At what score do you want the game to end?');
 
 const diceDOM = document.querySelector('.dice');
 
@@ -53,7 +55,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         document.getElementById(`score-${currentPlayer}`).textContent = scores[currentPlayer];
     
         // check if player wins
-        if(scores[currentPlayer] >= 100)  {
+        if(scores[currentPlayer] >= winScore)  {
             document.getElementById(`name-${currentPlayer}`).textContent = 'Winner!';
             diceDOM.style.visibility = 'hidden';
             document.querySelector(`.player-${currentPlayer}-panel`).classList.add('winner');
