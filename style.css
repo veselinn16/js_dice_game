@@ -162,5 +162,24 @@ i {
     box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.10);
 }
 
+::placeholder {
+    color: var(--color-text);
+}
+
+#final-score {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 520px;
+    color: var(--color-text);
+    font-size: 18px;
+    font-family: "Lato";
+    text-align: center;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 2px;
+    outline: none;
+}
+
 .winner { background-color: #f7f7f7; }
 .winner .player-name { font-weight: 900; color: var(--color-secondary); }
