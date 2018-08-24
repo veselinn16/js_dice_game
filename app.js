@@ -1,4 +1,4 @@
-let scores, roundScore, currentPlayer, gamePlaying;
+let scores, roundScore, currentPlayer, gamePlaying, prevDice;
 
 const diceDOM = document.querySelector('.dice');
 
@@ -12,12 +12,18 @@ const button = () => {
         diceDOM.style.visibility = 'visible';
         diceDOM.src = `dice-${dice}.png`;
         currentPlayerDOM = document.getElementById(`current-${currentPlayer}`);
-        console.log(currentPlayerDOM);
 
-        if(dice > 1) {
+        if(dice > 1 && dice < 6) {
+            // sets value of pevious dice
+            (prevDice !== dice) && (prevDice = dice);
+            
             roundScore += dice;
             // selects the current score field based on the current player
             currentPlayerDOM.textContent = roundScore;
+        } else if (dice === 6) {
+            // if the previous and current dice are both 6 player loses current score and it's the next player's turn
+            (prevDice === 6 && dice === 6) && (switchPlayer());
+            (prevDice !== dice) && (prevDice = dice);
         } else {
             switchPlayer()
         }
@@ -29,6 +35,7 @@ const switchPlayer = () => {
     currentPlayerDOM.textContent = 0;
     currentPlayer === 0 ? currentPlayer = 1 : currentPlayer = 0;
     roundScore = 0;
+    prevDice = null;
 
     // indicate visibly that whose turn it is to roll the dice
     document.querySelector('.player-0-panel').classList.toggle('active');
@@ -46,7 +53,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         document.getElementById(`score-${currentPlayer}`).textContent = scores[currentPlayer];
     
         // check if player wins
-        if(scores[currentPlayer] >= 1)  {
+        if(scores[currentPlayer] >= 100)  {
             document.getElementById(`name-${currentPlayer}`).textContent = 'Winner!';
             diceDOM.style.visibility = 'hidden';
             document.querySelector(`.player-${currentPlayer}-panel`).classList.add('winner');
