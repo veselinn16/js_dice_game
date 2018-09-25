@@ -1,5 +1,5 @@
 # Javascript Dice Game
-A multiplayer game, including a dice and overall and current scores.
+A multiplayer turn-based game, including a dice and overall and current scores.
 
 ## Game rules
 
