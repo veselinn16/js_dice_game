@@ -13,31 +13,27 @@ const button = () => {
         let dice = Math.floor(Math.random() * 6) + 1; // generate number from 1 to 6    
 
         // make dice visible and set the appropriate image
-        diceDOM.style.visibility = 'visible';
+        diceDOM.style.opacity = '1';
         diceDOM.src = `dice-${dice}.png`;
         currentPlayerDOM = document.getElementById(`current-${currentPlayer}`);
-        console.log(dice);
 
         if(dice > 1) {
-            console.log(`The dice is in the > 1 && < 6 rule`);
+            roundScore += dice;
+            // selects the current score field based on the current player
+            currentPlayerDOM.textContent = roundScore;
             
-
             if(prevDice === 6 && dice === 6) {
                 paragraphDOM.innerText = 'You rolled a 6 twice!'
                 notificationDOM.style.opacity = '1';
+                currentPlayerDOM.textContent = 0;
                 switchPlayer();
             }
 
             // sets value of pevious dice
             (prevDice !== dice) && (prevDice = dice);
-            
-            roundScore += dice;
-            // selects the current score field based on the current player
-            currentPlayerDOM.textContent = roundScore;
         } else {
             paragraphDOM.innerText = 'You rolled 1!'
             notificationDOM.style.opacity = '1';
-            console.log(`The dice is in the else`);
             switchPlayer()
         }
     }
@@ -57,7 +53,7 @@ const switchPlayer = () => {
     document.querySelector('.player-0-panel').classList.toggle('active');
     document.querySelector('.player-1-panel').classList.toggle('active');
 
-    diceDOM.style.visibility = 'hidden';
+    diceDOM.style.opacity = '0';
 }
 
 document.querySelector('.btn-roll').addEventListener('click', button);
@@ -81,7 +77,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         // check if player wins
         if(scores[currentPlayer] >= winScore)  {
             document.getElementById(`name-${currentPlayer}`).textContent = 'Winner!';
-            diceDOM.style.visibility = 'hidden';
+            diceDOM.style.opacity = '0';
             document.querySelector(`.player-${currentPlayer}-panel`).classList.add('winner');
             document.querySelector(`.player-${currentPlayer}-panel`).classList.remove('active');
             gamePlaying = false;
@@ -103,7 +99,7 @@ function start() {
     gamePlaying = true;
 
     // hide dice in beginning
-    diceDOM.style.visibility = 'hidden';
+    diceDOM.style.opacity = '0';
 
     // reset scores
     document.getElementById('score-0').textContent = 0;
