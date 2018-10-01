@@ -18,19 +18,22 @@ const button = () => {
         currentPlayerDOM = document.getElementById(`current-${currentPlayer}`);
         console.log(dice);
 
-        if(dice > 1 && dice < 6) {
+        if(dice > 1) {
             console.log(`The dice is in the > 1 && < 6 rule`);
+            
+
+            if(prevDice === 6 && dice === 6) {
+                paragraphDOM.innerText = 'You rolled a 6 twice!'
+                notificationDOM.style.opacity = '1';
+                switchPlayer();
+            }
+
             // sets value of pevious dice
             (prevDice !== dice) && (prevDice = dice);
             
             roundScore += dice;
             // selects the current score field based on the current player
             currentPlayerDOM.textContent = roundScore;
-        } else if (dice === 6) {
-            // if the previous and current dice are both 6 player loses current score and it's the next player's turn
-            console.log(`The dice is in the === 6 rule`);
-            
-            (prevDice !== dice) && (prevDice = dice);
         } else {
             paragraphDOM.innerText = 'You rolled 1!'
             notificationDOM.style.opacity = '1';
