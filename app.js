@@ -2,19 +2,24 @@ let scores, roundScore, currentPlayer, gamePlaying, prevDice;
 // asks user when the game should end
 
 const diceDOM = document.querySelector('.dice');
+const paragraphDOM = document.querySelector('.notification__paragraph');
+const notificationDOM = document.querySelector('.notification')
 
 start();
 
 const button = () => {
     if(gamePlaying) {
+        
         let dice = Math.floor(Math.random() * 6) + 1; // generate number from 1 to 6    
 
         // make dice visible and set the appropriate image
         diceDOM.style.visibility = 'visible';
         diceDOM.src = `dice-${dice}.png`;
         currentPlayerDOM = document.getElementById(`current-${currentPlayer}`);
+        console.log(dice);
 
         if(dice > 1 && dice < 6) {
+            console.log(`The dice is in the > 1 && < 6 rule`);
             // sets value of pevious dice
             (prevDice !== dice) && (prevDice = dice);
             
@@ -23,9 +28,13 @@ const button = () => {
             currentPlayerDOM.textContent = roundScore;
         } else if (dice === 6) {
             // if the previous and current dice are both 6 player loses current score and it's the next player's turn
-            (prevDice === 6 && dice === 6) && (switchPlayer());
+            console.log(`The dice is in the === 6 rule`);
+            
             (prevDice !== dice) && (prevDice = dice);
         } else {
+            paragraphDOM.innerText = 'You rolled 1!'
+            notificationDOM.style.opacity = '1';
+            console.log(`The dice is in the else`);
             switchPlayer()
         }
     }
@@ -33,6 +42,9 @@ const button = () => {
 
 
 const switchPlayer = () => {
+    setTimeout(() => {
+        notificationDOM.style.opacity = '0';
+    }, 600)
     currentPlayerDOM.textContent = 0;
     currentPlayer === 0 ? currentPlayer = 1 : currentPlayer = 0;
     roundScore = 0;
