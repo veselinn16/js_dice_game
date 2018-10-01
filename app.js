@@ -4,6 +4,8 @@ let scores, roundScore, currentPlayer, gamePlaying, prevDice;
 const diceDOM = document.querySelector('.dice');
 const paragraphDOM = document.querySelector('.notification__paragraph');
 const notificationDOM = document.querySelector('.notification')
+const btnRollDOM = document.querySelector('.btn-roll')
+const btnHoldDOM = document.querySelector('.btn-hold')
 
 start();
 
@@ -56,9 +58,9 @@ const switchPlayer = () => {
     diceDOM.style.opacity = '0';
 }
 
-document.querySelector('.btn-roll').addEventListener('click', button);
+btnRollDOM.addEventListener('click', button);
 
-document.querySelector('.btn-hold').addEventListener('click', function() {
+btnHoldDOM.addEventListener('click', function() {
     if(gamePlaying) {
         scores[currentPlayer] += roundScore;
 
@@ -78,6 +80,8 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         if(scores[currentPlayer] >= winScore)  {
             document.getElementById(`name-${currentPlayer}`).textContent = 'Winner!';
             diceDOM.style.opacity = '0';
+            btnHoldDOM.style.cursor = 'no-drop';
+            btnRollDOM.style.cursor = 'no-drop';
             document.querySelector(`.player-${currentPlayer}-panel`).classList.add('winner');
             document.querySelector(`.player-${currentPlayer}-panel`).classList.remove('active');
             gamePlaying = false;
@@ -100,6 +104,10 @@ function start() {
 
     // hide dice in beginning
     diceDOM.style.opacity = '0';
+
+    // set cursor types
+    btnHoldDOM.style.cursor = 'pointer';
+    btnRollDOM.style.cursor = 'pointer';
 
     // reset scores
     document.getElementById('score-0').textContent = 0;
