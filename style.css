@@ -16,6 +16,20 @@
     
 }
 
+.notification {
+    position: absolute;
+    background-color: var(--color-secondary);
+    color: #fff;
+    left: 50%;
+    top: 178px;
+    transform: translateX(-50%);
+    font-size: 20px;
+    padding: 5px;
+    opacity: 0;
+
+    transition: all .2s;
+}
+
 .clearfix::after {
     content: "";
     display: table;
